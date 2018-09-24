@@ -1,0 +1,197 @@
+* {
+  box-sizing: border-box;
+  transition: all .2s ease-in;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+header {
+  padding: 2em 0;
+  box-shadow: 1px 1px 10px #828080;
+  color: #e1c016;
+}
+
+header .logo {
+  text-align: center;
+}
+
+header .logo h1 {
+  font-size: 2em;
+  margin: 0 0 0 .5em;
+  letter-spacing: 3px;
+  display: inline-block
+}
+
+header .logo i {
+  font-size: 2em;
+}
+
+.movies-lists {
+  display: flex;
+  flex-direction: column;
+}
+
+.movies-lists article {
+  width: 90%;
+  margin: auto;
+  min-height: 15em;
+  /* display: flex; */
+}
+
+.movies-lists article .movies-container {
+  display: flex;
+}
+
+.movies-lists article h2 {
+  color: #e1c016;
+  font-size: 1.7em;
+}
+
+.movies-lists article .movies-container p,
+.search-page {
+  color: white;
+  text-align: center;
+}
+
+.search-page form {
+  box-shadow: 1px 1px 10px #828080;
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.search-page form input{
+  width: 80%;
+  background: transparent;
+  border: 1px solid transparent;
+  font-size: 1.5em;
+  padding: 1em;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.search-page form a {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\F060";
+  color: #e1c016;
+  font-size: 1.5em;
+  position: absolute;
+  top: 3%;
+  left: 2%;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.search-page form button {
+  outline: none;
+  background-color: #e1c016;
+  color: #222;
+  padding: 1em;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.movies-container{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.movies-container .movie {
+  min-width: 14.6%;
+  padding: 1em;
+  margin: 1em 1%;
+  position: relative;
+}
+
+.movies-container .movie .image-container {
+  position: relative;
+  width: 185px;
+  margin: auto;
+}
+
+/* .movies-container .movie .image-container::after {
+  content: '\25BE';
+  position: absolute;
+  bottom: -2%;
+  background-color: #e1c016;
+  color: #222;
+  font-size: 2em;
+  border-radius: 50%;
+  padding: .2em .3em 0;
+  left: 83%;
+  cursor: pointer;
+} */
+
+.movies-container .movie .image-container img,
+.movies-container .movie .image-replacement {
+  max-width: 100%;
+  max-height: 278px;
+}
+
+.movies-container .movie .image-replacement {
+  line-height: 17em;
+}
+
+.movies-container .movie .lists-menu {
+  position: absolute;
+  left: 61%;
+  bottom: 20%;
+  /* width: 8em; */
+  width: 3em;
+  background-color: #e1c016;
+  color: #222;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+}
+
+.movies-container .movie .lists-menu::before {
+  content: '\25BE';
+  color: #222;
+  font-size: 2em;
+  position: absolute;
+  top: 12%;
+  left: 21%;
+}
+
+.movies-container .movie .lists-menu select {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.movies-container .movie .movie-info {
+  width: 70%;
+  margin: auto;
+  font-weight: bold;
+}
+
+.add-movie {
+  position: fixed;
+  bottom: 8%;
+  left: 90%;
+  font-size: 1.5em;
+  padding: .5em .7em;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: #222;
+  background-color: #e1c016;
+  cursor: pointer;
+}
+
+.show {
+  display: block;
+}
