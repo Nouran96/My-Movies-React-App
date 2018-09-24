@@ -195,3 +195,23 @@ header .logo i {
 .show {
   display: block;
 }
+
+@media (max-width: 800px) {
+  .search-page form input {
+    width: 70%;
+    margin-left: 7%
+  }
+}
+
+@media (max-width: 600px) {
+  .add-movie {
+    left: 80%;
+  }
+}
+
+@media (max-width: 410px) {
+  .search-page form input {
+    width: 55%;
+    font-size: 1.3em;
+  }
+}
