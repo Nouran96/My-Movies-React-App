@@ -35,10 +35,10 @@ class App extends Component {
 
         <Route exact path="/" render={() => {
           return (
-            <div class="main-page">
+            <div className="main-page">
               <header>
-                <div class="logo">
-                  <i class="fas fa-film"></i>
+                <div className="logo">
+                  <i className="fas fa-film"></i>
                   <h1>My Movies</h1>
                 </div>
               </header>
@@ -46,7 +46,7 @@ class App extends Component {
               <Lists movies={this.state.allMovies} onChangingShelf={this.handleChange.bind(this)} onRemovingMovie={this.removeMovie}/>
 
               <Link to="/search">
-                <span class="add-movie" title="Add a movie"><i class="fas fa-plus"></i></span>
+                <span className="add-movie" title="Add a movie"><i className="fas fa-plus"></i></span>
               </Link>
             </div>
           )

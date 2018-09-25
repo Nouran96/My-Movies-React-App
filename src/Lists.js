@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
 
-const wantToWatchMovies = [],
-        watchedMovies = [];
-
 class Lists extends Component {
 
     state = {
@@ -14,7 +11,7 @@ class Lists extends Component {
             <div className="movies-lists">
                 <article className="want-to-watch">
                     <h2>Want to Watch</h2>
-                    <div class="movies-container">
+                    <div className="movies-container">
                         {this.props.movies.length > 0 ? this.props.movies.map(movieData => {
                             return movieData.shelf === 'want-to-watch' && (
                                 <div className="movie" key={movieData.id}>
@@ -54,7 +51,7 @@ class Lists extends Component {
 
                 <article className="watched">
                     <h2>Watched</h2>
-                    <div class="movies-container">
+                    <div className="movies-container">
                         {this.props.movies.length > 0 ? this.props.movies.map(movieData => {
                             return movieData.shelf === 'watched' && (
                                 <div className="movie" key={movieData.id}>

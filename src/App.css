@@ -160,10 +160,13 @@ header .logo i {
 .movies-container .movie .lists-menu::before {
   content: '\25BE';
   color: #222;
-  font-size: 2em;
+  /* font-size: 2em; */
+  font-size: 32px;
   position: absolute;
-  top: 12%;
-  left: 21%;
+  /* top: 12%;
+  left: 21%; */
+  width: 100%;
+  padding-top: .2em;
 }
 
 .movies-container .movie .lists-menu select {
@@ -206,6 +209,10 @@ header .logo i {
 @media (max-width: 600px) {
   .add-movie {
     left: 80%;
+  }
+
+  .movies-container .movie .lists-menu::before {
+    padding-top: .1em;
   }
 }
 
