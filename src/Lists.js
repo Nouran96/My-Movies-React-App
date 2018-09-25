@@ -7,13 +7,28 @@ class Lists extends Component {
     }
 
     render() {
+        let wantToWatchList = [],
+            watchedList = []
+        if(this.props.movies.length > 0) {
+            this.props.movies.map(movieData => {
+                switch(movieData.shelf) {
+                    case 'want-to-watch':
+                        wantToWatchList.push(movieData)
+                        break;
+                    case 'watched':
+                        watchedList.push(movieData)
+                        break;
+                }
+            })
+        }
+
         return (
             <div className="movies-lists">
                 <article className="want-to-watch">
                     <h2>Want to Watch</h2>
                     <div className="movies-container">
-                        {this.props.movies.length > 0 ? this.props.movies.map(movieData => {
-                            return movieData.shelf === 'want-to-watch' && (
+                        {wantToWatchList.length > 0 ? wantToWatchList.map(movieData => {
+                            return (
                                 <div className="movie" key={movieData.id}>
                                 <div className="image-container">
                                 {movieData.poster_path !== null ? (
@@ -52,8 +67,8 @@ class Lists extends Component {
                 <article className="watched">
                     <h2>Watched</h2>
                     <div className="movies-container">
-                        {this.props.movies.length > 0 ? this.props.movies.map(movieData => {
-                            return movieData.shelf === 'watched' && (
+                        {watchedList.length > 0 ? watchedList.map(movieData => {
+                            return (
                                 <div className="movie" key={movieData.id}>
                                 <div className="image-container">
                                 {movieData.poster_path !== null ? (
