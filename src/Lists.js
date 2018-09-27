@@ -59,7 +59,7 @@ class Lists extends Component {
                             </div>
                             )
                         }) : (
-                            <p>No Movies yet</p>
+                            <p>No Movies yet. Click <span>+</span> to add movies</p>
                         )}
                     </div>
                 </article>
@@ -99,13 +99,13 @@ class Lists extends Component {
                             </div>
                             )
                         }) : (
-                            <p>No Movies yet</p>
+                            <p>No Movies yet. Click <span>+</span> to add movies</p>
                         )}
                     </div>
                 </article>
 
                 <footer>
-                    <p>Copyrights &copy; 2018 - By Nouran Samy</p>
+                    <p>Copyrights &copy; 2018 - By <span>Nouran Samy</span></p>
                     <p>Fetched data from <a href="https://developers.themoviedb.org/3" target="_blank">TMDb API</a></p>
                 </footer>
             </div>

@@ -168,6 +168,8 @@ header .logo i {
   font-weight: bold;
 }
 
+.movies-container p span {color: #e1c016}
+
 footer {
   background: #222;
   color: white;
@@ -176,15 +178,14 @@ footer {
   box-shadow: 1px -1px 10px #828080;
   padding: 1em;
   justify-content: space-around;
-  /* position: absolute;
-  width: 100%;
-  bottom: 0; */
 }
 
 footer a {
   color: #e1c016;
   text-decoration: none;
 }
+
+footer span {color: #e1c016}
 
 .add-movie {
   position: fixed;
