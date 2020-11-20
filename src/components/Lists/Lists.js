@@ -1,29 +1,26 @@
 import React, { Component } from "react";
 import Movie from "../Movie/Movie";
+import { connect } from "react-redux";
 
 class Lists extends Component {
-  state = {
-    shelf: "none",
-  };
-
   render() {
     let wantToWatchList = [],
       watchedList = [];
 
-    const { movies, onChangingShelf, onRemovingMovie } = this.props;
+    const { movies } = this.props;
 
-    if (movies.length > 0) {
-      movies.forEach((movieData) => {
-        switch (movieData.shelf) {
-          case "want-to-watch":
-            wantToWatchList.push(movieData);
-            break;
-          case "watched":
-            watchedList.push(movieData);
-            break;
-        }
-      });
-    }
+    Object.values(movies).forEach((movieData) => {
+      switch (movieData.shelf) {
+        case "want-to-watch":
+          wantToWatchList.push(movieData.movie);
+          break;
+        case "watched":
+          watchedList.push(movieData.movie);
+          break;
+        default:
+          break;
+      }
+    });
 
     return (
       <div className="movies-lists">
@@ -36,8 +33,7 @@ class Lists extends Component {
                   <Movie
                     key={movieData.id}
                     movie={movieData}
-                    onChangingShelf={onChangingShelf}
-                    onRemovingMovie={onRemovingMovie}
+                    shelf={"want-to-watch"}
                   />
                 );
               })
@@ -58,8 +54,7 @@ class Lists extends Component {
                   <Movie
                     key={movieData.id}
                     movie={movieData}
-                    onChangingShelf={onChangingShelf}
-                    onRemovingMovie={onRemovingMovie}
+                    shelf={"watched"}
                   />
                 );
               })
@@ -77,7 +72,11 @@ class Lists extends Component {
           </p>
           <p>
             Fetched data from{" "}
-            <a href="https://developers.themoviedb.org/3" target="_blank">
+            <a
+              href="https://developers.themoviedb.org/3"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               TMDb API
             </a>
           </p>
@@ -87,4 +86,8 @@ class Lists extends Component {
   }
 }
 
-export default Lists;
+const mapStateToProps = (state) => ({
+  movies: state,
+});
+
+export default connect(mapStateToProps)(Lists);

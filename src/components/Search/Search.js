@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import Movie from "../Movie/Movie";
 
 let movies = [];
 
@@ -7,7 +9,7 @@ class Search extends Component {
   state = {
     searchedMovies: [],
     query: "",
-    shelf: "none",
+    // shelf: "none",
   };
 
   findMovies(e) {
@@ -24,16 +26,6 @@ class Search extends Component {
         this.setState({ searchedMovies: [...res[0]] });
       });
     });
-  }
-
-  addMovieToShelf(movie) {
-    this.props.movies.forEach((displayedMovie, index) => {
-      if (displayedMovie.id === movie.id) {
-        this.props.movies.splice(index, 1);
-      }
-    });
-    this.props.movies.push(movie);
-    localStorage.setItem("allMovies", JSON.stringify(this.props.movies));
   }
 
   async fetchAsync() {
@@ -71,46 +63,7 @@ class Search extends Component {
         <div className="movies-container">
           {this.state.searchedMovies.length > 0 ? (
             this.state.searchedMovies.map((movieData) => (
-              <div className="movie" key={movieData.id}>
-                <div className="image-container">
-                  {movieData.poster_path !== null ? (
-                    <img
-                      src={`http://image.tmdb.org/t/p/w185/${movieData.poster_path}`}
-                      alt={movieData.title}
-                    />
-                  ) : (
-                    <p className="image-replacement">No Image</p>
-                  )}
-                </div>
-
-                <div className="lists-menu">
-                  <select
-                    value={movieData.shelf || "none"}
-                    onChange={(e) => {
-                      this.props.onChoosingShelf(e, movieData);
-                      this.addMovieToShelf(movieData);
-                      if (movieData.shelf === "none")
-                        this.props.onRemovingMovie(movieData);
-                    }}
-                  >
-                    <option disabled>Move to...</option>
-                    <option value="want-to-watch">Want to Watch</option>
-                    <option value="watched">Watched</option>
-                    <option value="none">None</option>
-                  </select>
-                </div>
-
-                <div className="movie-info">
-                  <p className="movie-title">
-                    {movieData.title}{" "}
-                    {movieData.release_date ? (
-                      <span>({movieData.release_date.slice(0, 4)})</span>
-                    ) : (
-                      ""
-                    )}
-                  </p>
-                </div>
-              </div>
+              <Movie key={movieData.id} movie={movieData} />
             ))
           ) : (
             <p>No Movies available</p>

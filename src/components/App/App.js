@@ -4,29 +4,8 @@ import Lists from "../Lists/Lists";
 import Search from "../Search/Search";
 import "./App.css";
 import { connect } from "react-redux";
-import { removeMovieAction } from "../../actions/movies";
 
 class App extends Component {
-  state = {
-    value: "",
-  };
-
-  handleChange = (event, movie) => {
-    movie.shelf = event.target.value;
-    this.setState(
-      {
-        value: event.target.value,
-      },
-      () => {
-        localStorage.setItem("allMovies", JSON.stringify(this.props.allMovies));
-      }
-    );
-  };
-
-  removeMovie = (removedMovie) => {
-    this.props.onRemoveMovie(removedMovie.id);
-  };
-
   render() {
     return (
       <div className="App">
@@ -43,13 +22,7 @@ class App extends Component {
                   </div>
                 </header>
 
-                <Lists
-                  movies={this.props.allMovies}
-                  onChangingShelf={this.handleChange}
-                  onRemovingMovie={(removedMovie) =>
-                    this.props.onRemoveMovie(removedMovie.id)
-                  }
-                />
+                <Lists onChangingShelf={this.handleChange} />
 
                 <Link to="/search">
                   <span className="add-movie" title="Add a movie">
@@ -64,15 +37,7 @@ class App extends Component {
         <Route
           path="/search"
           render={() => {
-            return (
-              <Search
-                movies={this.props.movies}
-                onChoosingShelf={this.handleChange}
-                onRemovingMovie={(removedMovie) =>
-                  this.props.onRemoveMovie(removedMovie.id)
-                }
-              />
-            );
+            return <Search />;
           }}
         />
       </div>
@@ -84,9 +49,5 @@ const mapStateToProps = (state) => ({
   allMovies: state.movies,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onRemoveMovie: (id) => dispatch(removeMovieAction(id)),
-});
-
 // Connect prevents routing by default so should use withRouter HOC
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps)(App));

@@ -1,9 +1,16 @@
-const { MOVIE_REMOVE } = require("../constants/actionTypes");
-const { default: moviesReducer } = require("../reducers/moviesReducer");
+import { MOVIE_REMOVE, MOVIE_CHANGE_SHELF } from "../constants/actionTypes";
 
 export const removeMovieAction = (id) => ({
   type: MOVIE_REMOVE,
   payload: {
     id,
+  },
+});
+
+export const changeShelfAction = (movie, shelf) => ({
+  type: MOVIE_CHANGE_SHELF,
+  payload: {
+    movie,
+    shelf,
   },
 });

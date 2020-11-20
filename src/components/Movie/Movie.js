@@ -1,6 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
+import {
+  removeMovieAction,
+  addToWatchedListAction,
+  changeShelfAction,
+} from "../../actions/movies";
 
-const Movie = ({ movie, onChangingShelf, onRemovingMovie }) => {
+const Movie = ({ movie, onChoosingShelf, onRemovingMovie, shelf }) => {
   return (
     <div className="movie">
       <div className="image-container">
@@ -16,10 +22,11 @@ const Movie = ({ movie, onChangingShelf, onRemovingMovie }) => {
 
       <div className="lists-menu">
         <select
-          value={movie.shelf || "none"}
-          onChange={(e) => {
-            onChangingShelf(e, movie);
-            if (movie.shelf === "none") onRemovingMovie(movie);
+          //   value={shelf || "none"}
+          onMouseUp={(e) => {
+            const shelf = e.target.value;
+            if (shelf === "none") onRemovingMovie(movie.id);
+            else onChoosingShelf(shelf, movie);
           }}
         >
           <option disabled>Move to...</option>
@@ -43,4 +50,10 @@ const Movie = ({ movie, onChangingShelf, onRemovingMovie }) => {
   );
 };
 
-export default Movie;
+const mapDispatchToProps = (dispatch) => ({
+  onRemovingMovie: (id) => dispatch(removeMovieAction(id)),
+
+  onChoosingShelf: (shelf, movie) => dispatch(changeShelfAction(movie, shelf)),
+});
+
+export default connect(null, mapDispatchToProps)(Movie);
