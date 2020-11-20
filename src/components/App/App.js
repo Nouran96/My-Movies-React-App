@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
 import Lists from "../Lists/Lists";
 import Search from "../Search/Search";
 import "./App.css";
+import { connect } from "react-redux";
+import { removeMovieAction } from "../../actions/movies";
 
 class App extends Component {
   state = {
-    allMovies: JSON.parse(localStorage.getItem("allMovies")) || [],
     value: "",
   };
 
@@ -17,20 +18,13 @@ class App extends Component {
         value: event.target.value,
       },
       () => {
-        localStorage.setItem("allMovies", JSON.stringify(this.state.allMovies));
+        localStorage.setItem("allMovies", JSON.stringify(this.props.allMovies));
       }
     );
   };
 
   removeMovie = (removedMovie) => {
-    this.setState(
-      (state) => ({
-        allMovies: state.allMovies.filter((movie) => movie !== removedMovie),
-      }),
-      () => {
-        localStorage.setItem("allMovies", JSON.stringify(this.state.allMovies));
-      }
-    );
+    this.props.onRemoveMovie(removedMovie.id);
   };
 
   render() {
@@ -50,9 +44,11 @@ class App extends Component {
                 </header>
 
                 <Lists
-                  movies={this.state.allMovies}
+                  movies={this.props.allMovies}
                   onChangingShelf={this.handleChange}
-                  onRemovingMovie={this.removeMovie}
+                  onRemovingMovie={(removedMovie) =>
+                    this.props.onRemoveMovie(removedMovie.id)
+                  }
                 />
 
                 <Link to="/search">
@@ -70,9 +66,11 @@ class App extends Component {
           render={() => {
             return (
               <Search
-                movies={this.state.allMovies}
-                onChoosingShelf={this.handleChange.bind(this)}
-                onRemovingMovie={this.removeMovie}
+                movies={this.props.movies}
+                onChoosingShelf={this.handleChange}
+                onRemovingMovie={(removedMovie) =>
+                  this.props.onRemoveMovie(removedMovie.id)
+                }
               />
             );
           }}
@@ -82,4 +80,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  allMovies: state.movies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onRemoveMovie: (id) => dispatch(removeMovieAction(id)),
+});
+
+// Connect prevents routing by default so should use withRouter HOC
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
