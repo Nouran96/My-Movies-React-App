@@ -27,8 +27,8 @@ const Movie = ({ movie, onChoosingShelf, onRemovingMovie, shelf }) => {
           }}
         >
           <option disabled>Move to...</option>
-          <option value={WANT_TO_WATCH.value}>Want to Watch</option>
-          <option value={WATCHED.value}>Watched</option>
+          <option value={WANT_TO_WATCH.value}>{WANT_TO_WATCH.label}</option>
+          <option value={WATCHED.value}>{WATCHED.label}</option>
           <option value="none">None</option>
         </select>
       </div>

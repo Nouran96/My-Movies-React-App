@@ -9,7 +9,6 @@ class Search extends Component {
   state = {
     searchedMovies: [],
     query: "",
-    // shelf: "none",
   };
 
   findMovies(e) {
