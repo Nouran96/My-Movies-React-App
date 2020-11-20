@@ -1,10 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  removeMovieAction,
-  addToWatchedListAction,
-  changeShelfAction,
-} from "../../actions/movies";
+import { removeMovieAction, changeShelfAction } from "../../actions/movies";
+import { WANT_TO_WATCH, WATCHED } from "../../constants/moviesLists";
 
 const Movie = ({ movie, onChoosingShelf, onRemovingMovie, shelf }) => {
   return (
@@ -22,16 +19,16 @@ const Movie = ({ movie, onChoosingShelf, onRemovingMovie, shelf }) => {
 
       <div className="lists-menu">
         <select
-          //   value={shelf || "none"}
+          defaultValue={shelf || "none"}
           onMouseUp={(e) => {
-            const shelf = e.target.value;
-            if (shelf === "none") onRemovingMovie(movie.id);
-            else onChoosingShelf(shelf, movie);
+            const newShelf = e.target.value;
+            if (newShelf === "none") onRemovingMovie(movie.id);
+            else if (newShelf !== shelf) onChoosingShelf(newShelf, movie);
           }}
         >
           <option disabled>Move to...</option>
-          <option value="want-to-watch">Want to Watch</option>
-          <option value="watched">Watched</option>
+          <option value={WANT_TO_WATCH}>Want to Watch</option>
+          <option value={WATCHED}>Watched</option>
           <option value="none">None</option>
         </select>
       </div>

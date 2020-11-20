@@ -1,39 +1,25 @@
 import React, { Component } from "react";
 import Movie from "../Movie/Movie";
 import { connect } from "react-redux";
+import { getMoviesList } from "../../selectors/movies";
+import { WANT_TO_WATCH, WATCHED } from "../../constants/moviesLists";
 
 class Lists extends Component {
   render() {
-    let wantToWatchList = [],
-      watchedList = [];
-
-    const { movies } = this.props;
-
-    Object.values(movies).forEach((movieData) => {
-      switch (movieData.shelf) {
-        case "want-to-watch":
-          wantToWatchList.push(movieData.movie);
-          break;
-        case "watched":
-          watchedList.push(movieData.movie);
-          break;
-        default:
-          break;
-      }
-    });
+    const { wantToWatchMoviesList, watchedMoviesList } = this.props;
 
     return (
       <div className="movies-lists">
         <article className="want-to-watch">
           <h2>Want to Watch</h2>
           <div className="movies-container">
-            {wantToWatchList.length > 0 ? (
-              wantToWatchList.map((movieData) => {
+            {wantToWatchMoviesList.length > 0 ? (
+              wantToWatchMoviesList.map((movieData) => {
                 return (
                   <Movie
-                    key={movieData.id}
-                    movie={movieData}
-                    shelf={"want-to-watch"}
+                    key={movieData.movie.id}
+                    movie={movieData.movie}
+                    shelf={WANT_TO_WATCH}
                   />
                 );
               })
@@ -48,13 +34,13 @@ class Lists extends Component {
         <article className="watched">
           <h2>Watched</h2>
           <div className="movies-container">
-            {watchedList.length > 0 ? (
-              watchedList.map((movieData) => {
+            {watchedMoviesList.length > 0 ? (
+              watchedMoviesList.map((movieData) => {
                 return (
                   <Movie
-                    key={movieData.id}
-                    movie={movieData}
-                    shelf={"watched"}
+                    key={movieData.movie.id}
+                    movie={movieData.movie}
+                    shelf={WATCHED}
                   />
                 );
               })
@@ -87,7 +73,8 @@ class Lists extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  movies: state,
+  wantToWatchMoviesList: getMoviesList(state, WANT_TO_WATCH),
+  watchedMoviesList: getMoviesList(state, WATCHED),
 });
 
 export default connect(mapStateToProps)(Lists);

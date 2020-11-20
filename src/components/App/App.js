@@ -3,7 +3,6 @@ import { Route, Link, withRouter } from "react-router-dom";
 import Lists from "../Lists/Lists";
 import Search from "../Search/Search";
 import "./App.css";
-import { connect } from "react-redux";
 
 class App extends Component {
   render() {
@@ -45,9 +44,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  allMovies: state.movies,
-});
-
 // Connect prevents routing by default so should use withRouter HOC
-export default withRouter(connect(mapStateToProps)(App));
+// export default withRouter(connect(mapStateToProps)(App));
+export default App;
