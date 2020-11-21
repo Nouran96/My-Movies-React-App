@@ -11,19 +11,24 @@ class Search extends Component {
     query: "",
   };
 
+  updateQuery = (e) => {
+    this.setState({ query: e.target.value });
+  };
+
   findMovies(e) {
     e.preventDefault();
 
-    const searchValue = document.querySelector("#searchBar").value;
-    const movieNameArray = searchValue.split(" ");
+    // const searchValue = document.querySelector("#searchBar").value;
+    // const movieNameArray = searchValue.split(" ");
 
-    this.setState({ query: movieNameArray.join("+") }, function () {
-      movies = []; // Empty the array of movies
-      movies.push(this.fetchAsync());
+    const newQuery = this.state.query.split(" ").join("+");
 
-      Promise.all(movies).then((res) => {
-        this.setState({ searchedMovies: [...res[0]] });
-      });
+    this.setState({ query: newQuery }, async function () {
+      const movies = await this.fetchAsync();
+
+      if (movies) {
+        this.setState({ searchedMovies: [...movies] });
+      }
     });
   }
 
@@ -38,7 +43,7 @@ class Search extends Component {
       return data.results;
     }
 
-    return response;
+    return response.ok;
   }
 
   render() {
@@ -51,6 +56,8 @@ class Search extends Component {
           <input
             type="text"
             name="searchBar"
+            value={this.state.query}
+            onChange={this.updateQuery}
             placeholder="Search for a movie"
             id="searchBar"
           />

@@ -4,6 +4,22 @@ import { removeMovieAction, changeShelfAction } from "../../actions/movies";
 import { WANT_TO_WATCH, WATCHED } from "../../constants/moviesLists";
 
 const Movie = ({ movie, onChoosingShelf, onRemovingMovie, shelf }) => {
+  const updateShelf = (e) => {
+    const newShelf = e.target.value;
+
+    // If shelf is not true, Search page and default value is none
+    // If shelf is true, MoviesList page and default value is shelf
+    if ((!shelf && newShelf !== "none") || (shelf && newShelf !== shelf)) {
+      switch (newShelf) {
+        case "none":
+          onRemovingMovie(movie.id);
+          break;
+        default:
+          onChoosingShelf(newShelf, movie);
+      }
+    }
+  };
+
   return (
     <div className="movie">
       <div className="image-container">
@@ -18,14 +34,7 @@ const Movie = ({ movie, onChoosingShelf, onRemovingMovie, shelf }) => {
       </div>
 
       <div className="lists-menu">
-        <select
-          defaultValue={shelf || "none"}
-          onMouseUp={(e) => {
-            const newShelf = e.target.value;
-            if (newShelf === "none") onRemovingMovie(movie.id);
-            else if (newShelf !== shelf) onChoosingShelf(newShelf, movie);
-          }}
-        >
+        <select defaultValue={shelf || "none"} onMouseUp={updateShelf}>
           <option disabled>Move to...</option>
           <option value={WANT_TO_WATCH.value}>{WANT_TO_WATCH.label}</option>
           <option value={WATCHED.value}>{WATCHED.label}</option>
